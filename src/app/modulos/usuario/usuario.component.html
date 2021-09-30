@@ -1,6 +1,6 @@
 <mat-form-field>
   <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+  <input matInput [formControl]="search" placeholder="Ex. Mia" #input>
 </mat-form-field>
 
 <div class="mat-elevation-z8">
@@ -25,15 +25,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Sexo </th>
       <td mat-cell *matCellDef="let row"> 
         <ng-container [ngSwitch]="row.sexo">
-          <span *ngSwitchCase="sexoEnum.MASCULINO">
-            Masculino
-          </span>
-          <span *ngSwitchCase="sexoEnum.FEMININO">
-            Feminino
-          </span>
-          <span *ngSwitchCase="sexoEnum.NAO_OPINAR">
-            Não Opinar
-          </span>
+          {{row.sexo}}
         </ng-container>  
       </td>
     </ng-container>
@@ -53,6 +45,19 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ações </th>
+      <td mat-cell *matCellDef="let row"> 
+        <button color="primary" mat-icon-button matTooltip="Editar" [routerLink]="['./editar', row.id]">
+          <mat-icon>edit</mat-icon>
+        </button>
+        
+        <button color="warn" mat-icon-button matTooltip="Deletar" (click)="remove(row)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
@@ -64,6 +69,6 @@
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
 </div>
 
-<button mat-fab color="primary" class="btn-fixed" [routerLink]="['incluir']">
+<button mat-fab color="primary" class="btn-fixed" [routerLink]="['./incluir']">
   <mat-icon>add</mat-icon>
 </button>

@@ -3,6 +3,6 @@ export interface IUsuario {
     name: string,
     email: string,
     telefone: number,
-    sexo: number,
+    sexo: number | string,
     status: boolean
 }

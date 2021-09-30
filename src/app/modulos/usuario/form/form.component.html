@@ -1,36 +1,48 @@
-<form [formGroup]="form" class="row">
-    <div class="col-12">
-        <mat-form-field>
-            <mat-label>Nome Completo</mat-label>
-            <input formControlName="name" matInput>
-        </mat-form-field>
-    </div>
-    
-    <div class="col-12">
-        <mat-form-field>
-            <mat-label>E-mail</mat-label>
-            <input formControlName="email" matInput>
-        </mat-form-field>
-    </div>    
-    
-    <div class="col-12">
-        <mat-form-field>
-            <mat-label>Telefone</mat-label>
-            <input formControlName="telefone" matInput mask="(00) 0 0000-0000">
-        </mat-form-field>
-    </div>
+<mat-card class="example-card">
+    <mat-card-title>{{id ? 'Editar Usuário':'Novo Usuário'}}</mat-card-title>
+    <mat-card-subtitle>Os campos com * são obrigatórios</mat-card-subtitle>
 
-    <div class="col-12">
-        <mat-radio-group formControlName="sexo">
-            <mat-radio-button *ngFor="let item of sexoList" [value]="item.id">{{item.name}}</mat-radio-button>
-          </mat-radio-group>
-    </div>
+    <mat-card-content>
+        <form [formGroup]="form" class="row g-3">
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Nome Completo *</mat-label>
+                    <input formControlName="name" matInput>
+                </mat-form-field>
+            </div>
 
-    <div class="col-12">
-        <mat-slide-toggle formControlName="status">Status</mat-slide-toggle>
-    </div>
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>E-mail *</mat-label>
+                    <input formControlName="email" matInput>
+                </mat-form-field>
+            </div>
 
-    <div class="col-12">
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Telefone *</mat-label>
+                    <input formControlName="telefone" matInput mask="(00) 0 0000-0000">
+                </mat-form-field>
+            </div>
+
+            <div class="col-12">
+                <mat-radio-group formControlName="sexo">
+                    <mat-radio-button *ngFor="let item of sexoList" [value]="item.id" class="mx-2">{{item.name}}</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <div class="col-12">
+                <mat-slide-toggle formControlName="status">Status</mat-slide-toggle>
+            </div>
+
+        </form>
+    </mat-card-content>
+
+    <mat-card-actions class="d-flex px-3">
+        <button class="ms-auto" mat-button [routerLink]="['/usuario']">Voltar</button>
         <button [disabled]="form.invalid" (click)="salvar()" mat-raised-button color="primary">Salvar</button>
-    </div>
-</form>
+    </mat-card-actions>
+    <mat-card-footer>
+        <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+    </mat-card-footer>
+</mat-card>

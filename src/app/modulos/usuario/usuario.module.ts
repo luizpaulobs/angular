@@ -6,17 +6,19 @@ import { UsuarioComponent } from './usuario.component';
 import { FormComponent } from './form/form.component';
 import { DetalhesComponent } from './detalhes/detalhes.component';
 import { MaterialModule } from 'src/app/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './service/user.service';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { NgxMaskModule } from 'ngx-mask';
+import { RemovermodalComponent } from './removermodal/removermodal.component';
 
 
 @NgModule({
   declarations: [
     UsuarioComponent,
     FormComponent,
-    DetalhesComponent
+    DetalhesComponent,
+    RemovermodalComponent
   ],
   imports: [
     CommonModule,
@@ -25,6 +27,7 @@ import { NgxMaskModule } from 'ngx-mask';
     ReactiveFormsModule,
     AngularFirestoreModule,
     NgxMaskModule,
+    FormsModule
   ],
   providers: [
     UserService

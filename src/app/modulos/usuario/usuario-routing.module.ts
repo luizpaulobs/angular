@@ -7,7 +7,7 @@ import { UsuarioComponent } from './usuario.component';
 const routes: Routes = [
   { path: '', component: UsuarioComponent },
   { path: 'incluir', component: FormComponent },
-  { path: 'editar', component: FormComponent },
+  { path: 'editar/:id', component: FormComponent },
   { path: 'detalhes', component: DetalhesComponent }
 ];
 
