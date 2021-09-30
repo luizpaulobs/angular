@@ -1,0 +1,1 @@
+export const mapToNumber = (value) => Number(value)
