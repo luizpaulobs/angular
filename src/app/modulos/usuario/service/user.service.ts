@@ -57,7 +57,7 @@ export class UserService  {
   private _insert(data: IUsuario) {
     data.telefone = mapToNumber(data.telefone);
     data.cpf = mapToNumber(data.cpf);
-    data.cep = mapToNumber(data.cep)
+    data.cep = mapToNumber(data.cep);
 
     delete data.id;
     

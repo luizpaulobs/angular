@@ -10,8 +10,8 @@ import { SEXO } from './constantes/sexo.constantes';
 import { SEXOENUM } from './enum/sexo.enum';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { RemovermodalComponent } from './removermodal/removermodal.component';
 import { Router } from '@angular/router';
+import { ModalComponent } from 'src/app/shared/components/removermodal/modal.component';
 
 @Component({
   selector: 'app-usuario',
@@ -73,9 +73,9 @@ export class UsuarioComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   remove(row: IUsuario) {
-    const dialogRef = this.dialog.open(RemovermodalComponent, {
+    const dialogRef = this.dialog.open(ModalComponent, {
       width: '400px',
-      data: { text: row.name }
+      data: { text: `Deseja excluir <b>${row.name}<b> ?`, title: 'Excluir' }
     });
 
     dialogRef.afterClosed().subscribe(result => {

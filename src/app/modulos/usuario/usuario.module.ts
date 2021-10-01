@@ -10,9 +10,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './service/user.service';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { NgxMaskModule } from 'ngx-mask';
-import { RemovermodalComponent } from './removermodal/removermodal.component';
 import { CityService } from 'src/app/shared/service/city.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ModalComponent } from 'src/app/shared/components/removermodal/modal.component';
+import { CepService } from 'src/app/shared/service/cep.service';
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     UsuarioComponent,
     FormComponent,
     DetalhesComponent,
-    RemovermodalComponent
+    ModalComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +35,8 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     UserService,
-    CityService
+    CityService,
+    CepService
   ]
 })
 export class UsuarioModule { }

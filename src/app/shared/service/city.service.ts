@@ -11,6 +11,6 @@ export class CityService {
     ) { }
 
     fetchCity(uf: string) {
-        return this._http.get<ICidade>(`//servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`).toPromise()
+        return this._http.get<ICidade[]>(`//servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`).toPromise()
     }
 }
