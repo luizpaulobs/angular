@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
 })
 export class UsuarioComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  displayedColumns: string[] = ['name', 'email', 'telefone', 'sexo', 'status', 'actions'];
+  displayedColumns: string[] = ['name', 'email', 'telefone', 'cpf', 'sexo', 'status', 'actions'];
   dataSource: MatTableDataSource<IUsuario> = new MatTableDataSource(undefined);
   sexoList = SEXO
   sexoEnum = SEXOENUM

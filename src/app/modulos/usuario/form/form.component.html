@@ -1,41 +1,129 @@
 <mat-card class="example-card">
     <mat-card-title>{{id ? 'Editar Usuário':'Novo Usuário'}}</mat-card-title>
-    <mat-card-subtitle>Os campos com * são obrigatórios</mat-card-subtitle>
+    <mat-card-subtitle>Os campos com (*) são obrigatórios</mat-card-subtitle>
 
     <mat-card-content>
-        <form [formGroup]="form" class="row g-3">
-            <div class="col-12">
-                <mat-form-field>
-                    <mat-label>Nome Completo *</mat-label>
-                    <input formControlName="name" matInput>
-                </mat-form-field>
-            </div>
+        <mat-tab-group mat-align-tabs="center">
+            <form [formGroup]="form" class="row mx-0 g-3">
+                <mat-tab label="Básico">
+                    <div class="row mx-0 g-3">
 
-            <div class="col-12">
-                <mat-form-field>
-                    <mat-label>E-mail *</mat-label>
-                    <input formControlName="email" matInput>
-                </mat-form-field>
-            </div>
+                    
+                    <div class="col-12">
+                        <mat-form-field>
+                            <mat-label>Nome Completo</mat-label>
+                            <input formControlName="name" matInput>
+                        </mat-form-field>
+                    </div>
 
-            <div class="col-12">
-                <mat-form-field>
-                    <mat-label>Telefone *</mat-label>
-                    <input formControlName="telefone" matInput mask="(00) 0 0000-0000">
-                </mat-form-field>
-            </div>
+                    <div class="col-12 col-md-6">
+                        <mat-form-field>
+                            <mat-label>E-mail</mat-label>
+                            <input formControlName="email" matInput>
+                        </mat-form-field>
+                    </div>
 
-            <div class="col-12">
-                <mat-radio-group formControlName="sexo">
-                    <mat-radio-button *ngFor="let item of sexoList" [value]="item.id" class="mx-2">{{item.name}}</mat-radio-button>
-                </mat-radio-group>
-            </div>
+                    <div class="col-12 col-md-6">
+                        <mat-form-field>
+                            <mat-label>Senha</mat-label>
+                            <input matInput formControlName="senha" [type]="hide ? 'password' : 'text'">
+                            <button mat-icon-button matSuffix type="button" (click)="hide = !hide">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
 
-            <div class="col-12">
-                <mat-slide-toggle formControlName="status">Status</mat-slide-toggle>
-            </div>
+                    <div class="col-12 col-md-6">
+                        <mat-form-field>
+                            <mat-label>Telefone</mat-label>
+                            <input formControlName="telefone" matInput mask="(00) 0 0000-0000">
+                        </mat-form-field>
+                    </div>
 
-        </form>
+                    <div class="col-12 col-md-6">
+                        <mat-form-field>
+                            <mat-label>CPF</mat-label>
+                            <input formControlName="cpf" matInput mask="000.000.000-00">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12">
+                        <mat-radio-group formControlName="sexo">
+                            <mat-radio-button *ngFor="let item of sexoList" [value]="item.id" class="mx-2">{{item.name}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+
+                    <div class="col-12">
+                        <mat-slide-toggle formControlName="status">Status</mat-slide-toggle>
+                    </div>
+                </div>
+
+                </mat-tab>
+
+                <mat-tab label="Endereço">
+                    <div class="row mx-0 g-3">
+                        <div class="col-12 col-md-4">
+                            <mat-form-field>
+                                <mat-label>CEP</mat-label>
+                                <input formControlName="cep" matInput mask="00.000-000">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-md-8">
+                            <mat-form-field>
+                                <mat-label>Logradouro</mat-label>
+                                <input formControlName="logradouro" matInput>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-md-10">
+                            <mat-form-field>
+                                <mat-label>Bairro</mat-label>
+                                <input formControlName="bairro" matInput>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-md-2">
+                            <mat-form-field>
+                                <mat-label>Número</mat-label>
+                                <input formControlName="numero" matInput>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12">
+                            <mat-form-field>
+                                <mat-label>Outros</mat-label>
+                                <input formControlName="outros" matInput>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <mat-form-field>
+                                <mat-label>UF</mat-label>
+                                <mat-select formControlName="uf">
+                                    <mat-option *ngFor="let estado of estados" [value]="estado.id">
+                                        {{estado.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- <div class="col-12 col-sm-6">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Cidade</mat-label>
+                            <mat-select formControlName="cidade">
+                                <mat-option *ngFor="let food of foods" [value]="food.value">
+                                    {{food.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> -->
+                    </div>
+                </mat-tab>
+            </form>
+
+        </mat-tab-group>
     </mat-card-content>
 
     <mat-card-actions class="d-flex px-3">

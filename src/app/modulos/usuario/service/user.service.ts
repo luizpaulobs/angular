@@ -3,7 +3,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { IUsuario } from '../interface/usuario.interface';
 import { mapToNumber } from 'src/app/utils/function';
-import { Observable } from 'rxjs';
 
 @Injectable()
 
@@ -57,6 +56,8 @@ export class UserService  {
 
   private _insert(data: IUsuario) {
     data.telefone = mapToNumber(data.telefone);
+    data.cpf = mapToNumber(data.cpf);
+    data.cep = mapToNumber(data.cep)
 
     delete data.id;
     

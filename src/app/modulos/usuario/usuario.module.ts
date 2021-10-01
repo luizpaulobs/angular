@@ -11,6 +11,8 @@ import { UserService } from './service/user.service';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { NgxMaskModule } from 'ngx-mask';
 import { RemovermodalComponent } from './removermodal/removermodal.component';
+import { CityService } from 'src/app/shared/service/city.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -27,10 +29,12 @@ import { RemovermodalComponent } from './removermodal/removermodal.component';
     ReactiveFormsModule,
     AngularFirestoreModule,
     NgxMaskModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
-    UserService
+    UserService,
+    CityService
   ]
 })
 export class UsuarioModule { }
