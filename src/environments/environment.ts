@@ -13,7 +13,11 @@ export const environment = {
     storageBucket: "angulartreinamento.appspot.com",
     messagingSenderId: "900900157215",
     appId: "1:900900157215:web:26cd04329cea704780222a"
-  }
+  },
+
+  baseUrlCep: "//viacep.com.br/ws/",
+
+  baseUrlCity: "//servicodados.ibge.gov.br/api/v1/localidades/estados/"
 };
 
 

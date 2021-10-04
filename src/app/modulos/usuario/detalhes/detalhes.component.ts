@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { IUsuario } from '../interface/usuario.interface';
 
 @Component({
   selector: 'app-detalhes',
@@ -8,9 +10,16 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class DetalhesComponent implements OnInit {
 
-  constructor() { }
+  dataConfig: IUsuario;
+  hide = true;
 
-  ngOnInit(): void {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private data: {detalhes: IUsuario}
+
+  ) { }
+
+  ngOnInit(): void { 
+    this.dataConfig = this.data.detalhes
   }
 
 }

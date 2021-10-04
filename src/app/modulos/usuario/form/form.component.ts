@@ -78,7 +78,12 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (this.id) {
       this._service.fetchById(this.id)
-        .then((res) => this.form.patchValue(res))
+        .then((res) => {
+          this.form.patchValue(res);
+          setTimeout(() => {
+            this.form.get('localidade').setValue(res.localidade);
+          }, 3000)
+        })
     }
   }
 

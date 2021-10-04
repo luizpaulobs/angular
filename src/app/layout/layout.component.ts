@@ -1,7 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
     selector: 'app-layout',

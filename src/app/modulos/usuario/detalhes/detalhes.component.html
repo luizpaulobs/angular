@@ -1,1 +1,83 @@
-<p>detalhes works!</p>
+<div class="d-flex">
+    <h2 class="me-auto" mat-dialog-title>Detalhes do Usuário</h2>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content>
+    <div class="row g-3">
+        <div class="col-12">
+            <label>Nome: {{dataConfig.name}}</label>
+        </div>
+    
+        <div class="col-4">
+            <label>CPF: {{dataConfig.cpf | mask: '000.000.000-00'}}</label>
+        </div>
+    
+        <div class="col-4">
+            <label>Sexo: {{dataConfig.sexo}}</label>
+        </div>
+    
+        <div class="col-4">
+            <ng-container *ngIf="dataConfig.status; else elseTemplate">
+                <p>Status: <span class="text-success">Ativado</span></p>
+            </ng-container>
+            <ng-template #elseTemplate>
+                <p>Status: <span class="text-danger">Desativado</span></p>
+            </ng-template>
+        </div>
+    
+        <div class="col-4">
+            <label>Telefone: {{dataConfig.telefone | mask: '(00) 0 0000-0000'}}</label>
+        </div>
+    
+        <div class="col-4">
+            <label>Email: {{dataConfig.email}}</label>
+        </div>
+    
+        <div class="col-4">
+            <label >Senha: {{hide ? '******': dataConfig.senha}}</label>
+            <button mat-icon-button matSuffix type="button" (click)="hide = !hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <h5 class="mt-5">Endereço</h5>
+    <hr>
+
+    <div class="row g-3">
+        <div class="col-4">
+            <label>CEP: {{dataConfig.cep | mask: '00.000-000'}}</label>
+        </div>
+    
+        <div class="col-4">
+            <label>Número: {{dataConfig.numero}}</label>
+        </div>
+    
+        <div class="col-4">
+            <label>Logradouro: {{dataConfig.logradouro}}</label>
+        </div>
+       
+        <div class="col-4">
+            <label>Bairro: {{dataConfig.bairro}}</label>
+        </div>
+    
+        <div class="col-4">
+            <label>UF: {{dataConfig.uf}}</label>
+        </div>
+        
+        <div class="col-4">
+            <label>Cidade: {{dataConfig.localidade}}</label>
+        </div>
+        
+        <div class="col-12">
+            <label>Outros: {{dataConfig.outros}}</label>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" [mat-dialog-close]="true" [routerLink]="['./usuario/editar', dataConfig.id]" cdkFocusInitial>Editar</button>
+</mat-dialog-actions>

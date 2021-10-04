@@ -12,6 +12,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ModalComponent } from 'src/app/shared/components/removermodal/modal.component';
+import { DetalhesComponent } from './detalhes/detalhes.component';
 
 @Component({
   selector: 'app-usuario',
@@ -85,8 +86,13 @@ export class UsuarioComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  editar(row: IUsuario) {
-    this._router.navigate(['usuario/incluir']);
-  }
+  // editar(row: IUsuario) {
+  //   this._router.navigate(['usuario/incluir']);
+  // }
 
+  info(row: IUsuario) {
+    this.dialog.open(DetalhesComponent, {
+      data: {detalhes: row}
+    })
+  }
 }

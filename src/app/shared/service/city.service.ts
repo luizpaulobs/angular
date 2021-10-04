@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { ICidade } from '../interfaces/city.interface';
 
 @Injectable()
@@ -11,6 +12,6 @@ export class CityService {
     ) { }
 
     fetchCity(uf: string) {
-        return this._http.get<ICidade[]>(`//servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`).toPromise()
+        return this._http.get<ICidade[]>(`${environment.baseUrlCity + uf}/municipios`).toPromise()
     }
 }
