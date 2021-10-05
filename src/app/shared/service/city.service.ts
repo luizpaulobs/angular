@@ -14,4 +14,8 @@ export class CityService {
     fetchCity(uf: string) {
         return this._http.get<ICidade[]>(`${environment.baseUrlCity + uf}/municipios`).toPromise()
     }
+
+    fetchCidade(id: number) {
+        return this._http.get<any>(`${environment.baseUrlAPI}/localidades/municipios/${id}`).toPromise()
+    }
 }

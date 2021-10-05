@@ -17,7 +17,11 @@ export const environment = {
 
   baseUrlCep: "//viacep.com.br/ws/",
 
-  baseUrlCity: "//servicodados.ibge.gov.br/api/v1/localidades/estados/"
+  baseUrlCity: "//servicodados.ibge.gov.br/api/v1/localidades/estados/",
+
+  baseUrlCidade: "//servicodados.ibge.gov.br/api/v1/localidades/distritos/",
+  
+  baseUrlAPI: "//servicodados.ibge.gov.br/api/v1"
 };
 
 

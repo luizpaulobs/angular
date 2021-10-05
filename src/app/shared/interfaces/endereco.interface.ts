@@ -5,5 +5,6 @@ export interface IEndereco {
     numero: number,
     outros: string,
     uf: string,
-    localidade: string
+    localidade: number
+    cidade?: any
 }

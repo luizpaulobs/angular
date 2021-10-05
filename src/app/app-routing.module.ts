@@ -8,7 +8,8 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: '', redirectTo: 'usuario', pathMatch: 'full'},
-      { path: 'usuario', loadChildren: () => import('./modulos/usuario/usuario.module').then(m => m.UsuarioModule) }
+      { path: 'usuario', loadChildren: () => import('./modulos/usuario/usuario.module').then(m => m.UsuarioModule) },
+      { path: 'cliente', loadChildren: () => import('./modulos/cliente/cliente.module').then(m => m.ClienteModule) }
     ]
   },
 ];

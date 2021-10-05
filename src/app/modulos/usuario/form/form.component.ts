@@ -2,8 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, OnDestroy } 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { combineLatest, of, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, mergeAll, takeUntil } from 'rxjs/operators';
 import { ModalComponent } from 'src/app/shared/components/removermodal/modal.component';
 import { ICidade } from 'src/app/shared/interfaces/city.interface';
 import { CepService } from 'src/app/shared/service/cep.service';
@@ -51,40 +51,29 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.form.get('cep').valueChanges
+
+    combineLatest([this.form.get('cep').valueChanges, this.form.get('uf').valueChanges])
       .pipe(takeUntil(this._onDestroy), debounceTime(1000), distinctUntilChanged())
-      .subscribe((res: string) => {
-        if (res.length < 8) return
-        this._cep.fetchCep(res)
-          .then((res) => {            
-            this.form.patchValue(res)
-            this._auxCityId = Number(res.ibge)
-          })
+      .subscribe(async (res) => {
+
+        if (res[0].length < 8) return
+        const cep = await this._cep.fetchCep(res[0])
+        
+        this.cidades = await this._cidade.fetchCity(res[1])
+        
+        this.form.patchValue({...cep, localidade: Number(cep.ibge)})
+
       })
 
-    this.form.get('uf').valueChanges
-      .pipe(takeUntil(this._onDestroy), distinctUntilChanged())
-      .subscribe((res: string) => {
-        this._cidade.fetchCity(res)
-          .then((res) => {
-            this.cidades = res
-            
-            if(this._auxCityId) {
-              this.form.get('localidade').setValue(this._auxCityId)
-              this._auxCityId = undefined
-            }
-          })
-      })
 
     if (this.id) {
       this._service.fetchById(this.id)
         .then((res) => {
+          delete res.localidade
           this.form.patchValue(res);
-          setTimeout(() => {
-            this.form.get('localidade').setValue(res.localidade);
-          }, 3000)
         })
     }
+
   }
 
   ngOnDestroy(): void {
