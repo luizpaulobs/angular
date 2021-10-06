@@ -5,7 +5,8 @@ import { FormComponent } from './form/form.component';
 
 const routes: Routes = [
   { path: '', component: ClienteComponent },
-  { path: 'incluir', component: FormComponent}
+  { path: 'incluir', component: FormComponent},
+  { path: 'editar/:id', component: FormComponent}
 ];
 
 @NgModule({

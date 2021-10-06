@@ -29,3 +29,11 @@ export const STATES: Array<{id: string, name: string}> = [
     { id: 'SP', name: 'SÃO PAULO' },
     { id: 'TO', name: 'TOCANTINS' },
     ];
+
+    export const CIVIL: Array<{id: string}> = [
+        {id: 'Solteiro(a)'},
+        {id: 'Casado(a)'},
+        {id: 'Separado(a)'},
+        {id: 'Divorciado(a)'},
+        {id: 'Viúvo(a)'}
+    ]

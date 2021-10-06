@@ -1,83 +1,83 @@
+<div>
+  <h2 class="text-center">Tabela de Clientes</h2>
+</div>
+
 <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput [formControl]="search" placeholder="Ex. Mia" #input>
-  </mat-form-field>
-  
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
-  
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
-        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-        <td mat-cell *matCellDef="let row"> {{row.email}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="telefone">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Telefone </th>
-        <td mat-cell *matCellDef="let row"> {{row.telefone | mask: '(00) 0 0000-0000'}} </td>
-      </ng-container>
-      
-      <ng-container matColumnDef="cpf">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> CPF </th>
-        <td mat-cell *matCellDef="let row"> {{row.cpf | mask: '000.000.000-00'}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="sexo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sexo </th>
-        <td mat-cell *matCellDef="let row"> 
-          <ng-container [ngSwitch]="row.sexo">
-            {{row.sexo}}
-          </ng-container>  
-        </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-        <td mat-cell *matCellDef="let row">
-  
-          <ng-container *ngIf="row.status; else elseTemplate">
-            <span class="badge bg-success">Ativado</span>
-          </ng-container>
-          
-          <ng-template #elseTemplate>
-            <span class="badge bg-danger">Desativado</span>
-          </ng-template>
-  
-        </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ações </th>
-        <td mat-cell *matCellDef="let row"> 
-          <button color="primary" mat-icon-button matTooltip="Editar" [routerLink]="['./editar', row.id]">
-            <mat-icon>edit</mat-icon>
-          </button>
-          
-          <button color="warn" mat-icon-button matTooltip="Deletar" >
-            <mat-icon>delete</mat-icon>
-          </button>
-  
-          <button color="accent" mat-icon-button matTooltip="Infomação" >
-            <mat-icon>info</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  
-      <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="4">Nenhum dado encontrado. {{input.value}}</td>
-      </tr>
-    </table>
-  
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
-  </div>
-  
-  <button mat-fab color="primary" class="btn-fixed" [routerLink]="['./incluir']">
-    <mat-icon>add</mat-icon>
-  </button>
+  <mat-label>Filter</mat-label>
+  <input matInput [formControl]="search" placeholder="Ex. Mia" #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
+      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="typePeople">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
+      <td mat-cell *matCellDef="let row"> {{row.typePeople ? "Jurídica" : "Física"}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+      <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="telefone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Telefone </th>
+      <td mat-cell *matCellDef="let row"> {{row.telefone | mask: '(00) 0 0000-0000'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="data">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Data </th>
+      <td mat-cell *matCellDef="let row"> {{row.data.toDate().toLocaleDateString('pt-BR')}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+      <td mat-cell *matCellDef="let row">
+
+        <ng-container *ngIf="row.status; else elseTemplate">
+          <span class="badge bg-success">Ativado</span>
+        </ng-container>
+
+        <ng-template #elseTemplate>
+          <span class="badge bg-danger">Desativado</span>
+        </ng-template>
+
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ações </th>
+      <td mat-cell *matCellDef="let row">
+        <button color="primary" mat-icon-button matTooltip="Editar" [routerLink]="['./editar', row.id]">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button color="warn" mat-icon-button matTooltip="Deletar" (click)="remove(row)">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+        <button color="accent" mat-icon-button matTooltip="Infomação">
+          <mat-icon>info</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">Nenhum dado encontrado. {{input.value}}</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+</div>
+
+<button mat-fab color="primary" class="btn-fixed" [routerLink]="['./incluir']">
+  <mat-icon>add</mat-icon>
+</button>
