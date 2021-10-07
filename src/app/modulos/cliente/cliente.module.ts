@@ -11,12 +11,14 @@ import { CityService } from 'src/app/shared/service/city.service';
 import { CepService } from 'src/app/shared/service/cep.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ClienteService } from './service/cliente.service';
+import { DetalhesComponent } from './detalhes/detalhes.component';
 
 
 @NgModule({
   declarations: [
     ClienteComponent,
-    FormComponent
+    FormComponent,
+    DetalhesComponent
   ],
   imports: [
     CommonModule,

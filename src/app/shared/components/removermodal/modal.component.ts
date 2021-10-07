@@ -8,17 +8,22 @@ import { IModal } from './modal.interface';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
-  
-  dataConfig: IModal = {text: undefined, title: undefined, confirmar: 'Confirmar', cancelar: 'Cancelar'};
+
+  dataConfig: IModal = {
+    text: undefined,
+    title: undefined,
+    confirmar: 'Confirmar',
+    cancelar: 'Cancelar'
+  };
 
   constructor(
     public dialogRef: MatDialogRef<ModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IModal 
-    
+    @Inject(MAT_DIALOG_DATA) public data: IModal
+
   ) { }
 
   ngOnInit(): void {
-    this.dataConfig = {...this.dataConfig, ...this.data}
+    this.dataConfig = { ...this.dataConfig, ...this.data };
   }
 
 }

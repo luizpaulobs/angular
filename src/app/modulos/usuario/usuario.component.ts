@@ -10,7 +10,6 @@ import { SEXO } from './constantes/sexo.constantes';
 import { SEXOENUM } from './enum/sexo.enum';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { ModalComponent } from 'src/app/shared/components/removermodal/modal.component';
 import { DetalhesComponent } from './detalhes/detalhes.component';
 
@@ -35,7 +34,6 @@ export class UsuarioComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private _service: UserService,
     private dialog: MatDialog,
-    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -58,9 +56,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit, OnDestroy {
     })
     this.search.valueChanges
       .pipe(takeUntil(this._onDestroy), debounceTime(500))
-      .subscribe((res) => {
-        this.dataSource.filter = res.trim().toLowerCase();
-      })
+      .subscribe((res) => this.dataSource.filter = res.trim().toLowerCase())
   }
 
   ngAfterViewInit() {
@@ -80,19 +76,15 @@ export class UsuarioComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this._service.remove(row.id)
       }
     });
   }
-
-  // editar(row: IUsuario) {
-  //   this._router.navigate(['usuario/incluir']);
-  // }
-
+  
   info(row: IUsuario) {
     this.dialog.open(DetalhesComponent, {
-      data: {detalhes: row}
+      data: { detalhes: row }
     })
   }
 }

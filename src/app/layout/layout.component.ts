@@ -11,6 +11,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
     mobileQuery: MediaQueryList;
     private _mobileQueryListener: () => void;
+    
     constructor(
         public media: MediaMatcher,
         private _cdr: ChangeDetectorRef

@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { ModalComponent } from 'src/app/shared/components/removermodal/modal.component';
+import { DetalhesComponent } from './detalhes/detalhes.component';
 import { IFisica } from './interface/fisica.interface';
 import { IJuridica } from './interface/juridica.interface';
 import { ClienteService } from './service/cliente.service';
@@ -34,9 +35,7 @@ export class ClienteComponent implements OnInit, AfterViewInit, OnDestroy {
   
   ngOnInit(): void {
     this._service.fetchData().pipe(takeUntil(this._onDestroy)).subscribe((res) => {
-      this.dataSource.data = res
-      console.log(res);
-      
+      this.dataSource.data = res;
     })
     
     this.search.valueChanges
@@ -68,5 +67,12 @@ export class ClienteComponent implements OnInit, AfterViewInit, OnDestroy {
         this._service.remove(row.id)
       }
     });
+  }
+
+  info(row: IFisica | IJuridica) {
+    this.dialog.open(DetalhesComponent, {
+      data: {detalhes: row}
+    })
+    
   }
 }

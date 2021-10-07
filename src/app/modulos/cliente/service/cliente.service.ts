@@ -63,12 +63,13 @@ export class ClienteService {
     
     let _data
     
-    if (data.typePeole) {
+    if (data.typePeople) {
       _data = data as IJuridica
       _data.cnpj = mapToNumber(_data.cnpj);
     } else {
       _data = data as IFisica
       _data.cpf = mapToNumber(_data.cpf);
+      _data.rg = mapToNumber(_data.rg);
     }
 
     delete data.id;

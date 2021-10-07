@@ -11,8 +11,6 @@ import { CepService } from 'src/app/shared/service/cep.service';
 import { CityService } from 'src/app/shared/service/city.service';
 import { MyErrorStateMatcher } from 'src/app/shared/service/errosStateMatcher.service';
 import { CIVIL, STATES } from 'src/app/utils/function';
-import { IFisica } from '../interface/fisica.interface';
-import { IJuridica } from '../interface/juridica.interface';
 import { ClienteService } from '../service/cliente.service';
 
 @Component({
@@ -32,6 +30,7 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
   cidades: ICidade[] = [];
   matcher = new MyErrorStateMatcher();
   id: string;
+  minData: Date;
 
   private _onDestroy = new Subject<void>();
 
@@ -48,7 +47,9 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.initForms();
+    this._initForms();
+    this._checkData();
+    this.minData = new Date;
   }
 
   ngAfterViewInit(): void {
@@ -70,11 +71,13 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
         .then((res) => {
           delete res.localidade
           this.formG.patchValue({ ...res, data: res.data.toDate() });
-          if (res.typePeole) {
+          
+          if (res.typePeople) { 
             this.formJ.patchValue(res);
           } else {
             this.formF.patchValue(res);
           }
+          
         })
     }
   }
@@ -88,14 +91,11 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.formG.valid && (this.formF.valid || this.formJ.valid)) {
       let data
 
-      if (this.formF.valid) {
-        data = { ...this.formG.value, ...this.formF.value }
-      } else {
+      if (this.formG.get('typePeople').value) {
         data = { ...this.formG.value, ...this.formJ.value }
+      } else {
+        data = { ...this.formG.value, ...this.formF.value }
       }
-      console.log(data);
-      
-      data.data = data.data.toDate()
 
       this.loading = true;
 
@@ -129,7 +129,7 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
     this._router.navigate(['cliente']);
   }
 
-  private initForms() {
+  private _initForms() {
     this.formG = this._fb.group({
       name: [undefined, [Validators.required, Validators.minLength(10), Validators.maxLength(60)]],
       telefone: [undefined, [Validators.required]],
@@ -158,6 +158,16 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
       cnpj: [undefined, [Validators.required]],
       inscricao_estadual: [undefined],
       inscricao_municipal: [undefined]
+    })
+  }
+
+  private _checkData() {
+    this.formG.get('data').valueChanges
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe((res) => {
+        if(res != undefined && moment.isMoment(res)) {
+          this.formG.get('data').setValue(res.toDate());
+        }
     })
   }
 

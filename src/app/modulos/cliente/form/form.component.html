@@ -8,7 +8,8 @@
                 <mat-tab label="Geral">
                     <div class="row mx-0 g-3">
                         <section class="example-section">
-                            <mat-checkbox #typePeople formControlName="typePeople" class="example-margin">Jurídica</mat-checkbox>
+                            <mat-checkbox #typePeople formControlName="typePeople" class="example-margin">Jurídica
+                            </mat-checkbox>
                         </section>
 
                         <div class="col-12">
@@ -46,8 +47,8 @@
                                             <mat-label>Estado Civil</mat-label>
                                             <mat-select formControlName="estado_civil" [errorStateMatcher]="matcher"
                                                 required>
-                                                <mat-option *ngFor="let ci of civil" [value]="ci.id">
-                                                    {{ci.id}}
+                                                <mat-option *ngFor="let ci of civil" [value]="ci">
+                                                    {{ci}}
                                                 </mat-option>
                                             </mat-select>
                                             <mat-error *ngIf="formF.invalid && formF.touched">Selecione um estado civil!
@@ -112,15 +113,16 @@
 
                         <div class="col-4">
                             <mat-form-field>
-                                <mat-label>{{!typePeople.checked ? 'Data de Nascimento' : 'Data de Abertura'}}</mat-label>
-                                <input #data formControlName="data" matInput [matDatepicker]="picker" required>
+                                <mat-label>{{!typePeople.checked ? 'Data de Nascimento' : 'Data de Abertura'}}
+                                </mat-label>
+                                <input #data formControlName="data" matInput [matDatepicker]="picker" [max]="minData"
+                                    required>
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
-                                <mat-error *ngIf="formG.invalid && formG.touched">Digite uma data!
-                                </mat-error>
+                                <mat-error *ngIf="formG.invalid && formG.touched">Digite uma data!</mat-error>
                             </mat-form-field>
                         </div>
-                        
+
                         <div class="col-12">
                             <mat-slide-toggle formControlName="status">Status</mat-slide-toggle>
                         </div>
@@ -202,7 +204,8 @@
 
     <mat-card-actions class="d-flex px-3">
         <button class="ms-auto" mat-button (click)="back()">Voltar</button>
-        <button [disabled]="formG.invalid && (formF || formJ)" (click)="salvar()" mat-raised-button color="primary">Salvar</button>
+        <button [disabled]="formG.invalid && (formF || formJ)" (click)="salvar()" mat-raised-button
+            color="primary">Salvar</button>
     </mat-card-actions>
     <mat-card-footer>
         <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>

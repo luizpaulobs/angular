@@ -2,10 +2,11 @@ import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, OnDestroy } 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
-import { combineLatest, of, Subject } from 'rxjs';
+import { combineLatest, merge, of, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, mergeAll, takeUntil } from 'rxjs/operators';
 import { ModalComponent } from 'src/app/shared/components/removermodal/modal.component';
 import { ICidade } from 'src/app/shared/interfaces/city.interface';
+import { Cep } from 'src/app/shared/models/cep.model.';
 import { CepService } from 'src/app/shared/service/cep.service';
 import { CityService } from 'src/app/shared/service/city.service';
 import { MyErrorStateMatcher } from 'src/app/shared/service/errosStateMatcher.service';
@@ -25,13 +26,13 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
   sexoList = SEXO;
   id: string;
   loading: boolean = false;
-  hide = true;
-  estados = STATES;
+  hide: boolean = true;
+  estados: { id: string, name: string }[] = STATES;
   cidades: ICidade[] = [];
-  matcher = new MyErrorStateMatcher();
+  matcher: MyErrorStateMatcher = new MyErrorStateMatcher();
+  private _cep: Cep;
 
   private _onDestroy = new Subject<void>();
-  private _auxCityId: number;
 
   constructor(
     private _fb: FormBuilder,
@@ -40,7 +41,7 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
     private _activatedRouter: ActivatedRoute,
     private _cidade: CityService,
     private dialog: MatDialog,
-    private _cep: CepService
+    private _cepService: CepService
   ) {
     this._activatedRouter.params.subscribe((param) => this.id = param.id)
   }
@@ -51,28 +52,21 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-
-    combineLatest([this.form.get('cep').valueChanges, this.form.get('uf').valueChanges])
+    this.form.get('cep').valueChanges
       .pipe(takeUntil(this._onDestroy), debounceTime(1000), distinctUntilChanged())
       .subscribe(async (res) => {
 
-        if (res[0].length < 8) return
-        const cep = await this._cep.fetchCep(res[0])
-        
-        this.cidades = await this._cidade.fetchCity(res[1])
-        
-        this.form.patchValue({...cep, localidade: Number(cep.ibge)})
+        if (res.length < 8) return;
 
+        this._cep = await this._cepService.fetchCep(res)
+        this.ufChanges()
+        this.form.patchValue(this._cep)
       })
 
 
-    if (this.id) {
-      this._service.fetchById(this.id)
-        .then((res) => {
-          delete res.localidade
-          this.form.patchValue(res);
-        })
-    }
+    if (this.id)
+      this._service.fetchById(this.id).then((res) => this.form.patchValue(res))
+
 
   }
 
@@ -91,6 +85,7 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
             sexo: 1,
             status: true
           })
+          
           this._router.navigate(['usuario']);
         })
         .finally(() => this.loading = false)
@@ -112,6 +107,15 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
       return
     }
     this._router.navigate(['usuario']);
+  }
+
+  private ufChanges() {
+    this.form.get('uf').valueChanges
+      .pipe(takeUntil(this._onDestroy), distinctUntilChanged())
+      .subscribe(async (res) => {
+        this.cidades = await this._cidade.fetchCity(res)
+        this.form.patchValue({ localidade: Number(this._cep.ibge) })
+      })
   }
 
   private initForm() {
