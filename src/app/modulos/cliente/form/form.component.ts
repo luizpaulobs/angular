@@ -161,8 +161,4 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
-  teste() {
-    
-  }
-
 }
