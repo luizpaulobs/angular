@@ -9,7 +9,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'usuario', pathMatch: 'full'},
       { path: 'usuario', loadChildren: () => import('./modulos/usuario/usuario.module').then(m => m.UsuarioModule) },
-      { path: 'cliente', loadChildren: () => import('./modulos/cliente/cliente.module').then(m => m.ClienteModule) }
+      { path: 'cliente', loadChildren: () => import('./modulos/cliente/cliente.module').then(m => m.ClienteModule) },
+      { path: 'produtos', loadChildren: () => import('./modulos/produtos/produtos.module').then(m => m.ProdutosModule) }
     ]
   },
 ];
