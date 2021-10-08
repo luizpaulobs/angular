@@ -24,7 +24,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnInit(): void { }
     
     ngAfterViewInit(): void {
-        //this._cdr.detectChanges()    
+        this._cdr.detectChanges()    
     }
 
     ngOnDestroy(): void {

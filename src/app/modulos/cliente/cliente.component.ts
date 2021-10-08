@@ -20,7 +20,7 @@ import { ClienteService } from './service/cliente.service';
 export class ClienteComponent implements OnInit, AfterViewInit, OnDestroy {
 
   displayedColumns: string[] = ['name', 'typePeople', 'email', 'telefone', 'status', 'data', 'actions'];
-  search = new FormControl(undefined)
+  search = new FormControl(undefined);
   dataSource: MatTableDataSource<any> = new MatTableDataSource(undefined);
 
   private _onDestroy = new Subject<void>();
@@ -32,24 +32,22 @@ export class ClienteComponent implements OnInit, AfterViewInit, OnDestroy {
     private _service: ClienteService,
     private dialog: MatDialog,
   ) { }
-  
+
   ngOnInit(): void {
-    this._service.fetchData().pipe(takeUntil(this._onDestroy)).subscribe((res) => {
-      this.dataSource.data = res;
-    })
-    
+    this._service.fetchData()
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe((res) => this.dataSource.data = res);
+
     this.search.valueChanges
       .pipe(takeUntil(this._onDestroy), debounceTime(500))
-      .subscribe((res) => {
-        this.dataSource.filter = res.trim().toLowerCase();
-      })
+      .subscribe((res) => this.dataSource.filter = res.trim().toLowerCase());
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-  
+
   ngOnDestroy(): void {
     this._onDestroy.next();
     this._onDestroy.complete();
@@ -63,16 +61,16 @@ export class ClienteComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this._service.remove(row.id)
+      if (result) {
+        this._service.remove(row.id);
       }
     });
   }
 
   info(row: IFisica | IJuridica) {
     this.dialog.open(DetalhesComponent, {
-      data: {detalhes: row}
-    })
-    
+      data: { detalhes: row }
+    });
+
   }
 }

@@ -2,8 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, OnDestroy } 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
-import { combineLatest, merge, of, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, mergeAll, takeUntil } from 'rxjs/operators';
+import { combineLatest, merge, Observable, of, Subject } from 'rxjs';
+import { concatMap, debounceTime, distinctUntilChanged, mergeAll, takeUntil } from 'rxjs/operators';
 import { ModalComponent } from 'src/app/shared/components/removermodal/modal.component';
 import { ICidade } from 'src/app/shared/interfaces/city.interface';
 import { Cep } from 'src/app/shared/models/cep.model.';
@@ -27,7 +27,7 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
   id: string;
   loading: boolean = false;
   hide: boolean = true;
-  estados: { id: string, name: string }[] = STATES;
+  estados: { id: string, name: string; }[] = STATES;
   cidades: ICidade[] = [];
   matcher: MyErrorStateMatcher = new MyErrorStateMatcher();
   private _cep: Cep;
@@ -43,29 +43,30 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
     private dialog: MatDialog,
     private _cepService: CepService
   ) {
-    this._activatedRouter.params.subscribe((param) => this.id = param.id)
+    this._activatedRouter.params.subscribe((param) => this.id = param.id);
   }
 
   ngOnInit(): void {
-    this.initForm()
+    this.initForm();
 
   }
 
   ngAfterViewInit(): void {
+
     this.form.get('cep').valueChanges
       .pipe(takeUntil(this._onDestroy), debounceTime(1000), distinctUntilChanged())
       .subscribe(async (res) => {
 
         if (res.length < 8) return;
 
-        this._cep = await this._cepService.fetchCep(res)
-        this.ufChanges()
-        this.form.patchValue(this._cep)
-      })
+        this._cep = await this._cepService.fetchCep(res);
+        this.ufChanges();
+        this.form.patchValue(this._cep);
+      });
 
 
     if (this.id)
-      this._service.fetchById(this.id).then((res) => this.form.patchValue(res))
+      this._service.fetchById(this.id).then((res) => this.form.patchValue(res));
 
 
   }
@@ -84,11 +85,11 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
           this.form.reset({
             sexo: 1,
             status: true
-          })
-          
+          });
+
           this._router.navigate(['usuario']);
         })
-        .finally(() => this.loading = false)
+        .finally(() => this.loading = false);
     }
   }
 
@@ -104,7 +105,7 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
           this._router.navigate(['usuario']);
         }
       });
-      return
+      return;
     }
     this._router.navigate(['usuario']);
   }
@@ -113,9 +114,9 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
     this.form.get('uf').valueChanges
       .pipe(takeUntil(this._onDestroy), distinctUntilChanged())
       .subscribe(async (res) => {
-        this.cidades = await this._cidade.fetchCity(res)
-        this.form.patchValue({ localidade: Number(this._cep.ibge) })
-      })
+        this.cidades = await this._cidade.fetchCity(res);
+        this.form.patchValue({ localidade: Number(this._cep.ibge) });
+      });
   }
 
   private initForm() {
@@ -134,7 +135,7 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
       outros: [undefined],
       uf: [undefined, [Validators.required]],
       localidade: [undefined, [Validators.required]]
-    })
+    });
   }
 
 }

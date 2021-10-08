@@ -5,56 +5,56 @@
     </button>
 </div>
 <ng-container *ngIf="dataConfig">
-    <mat-dialog-content >
+    <mat-dialog-content>
         <div class="row g-3">
-            <div class="col-8">
+            <div class="col-4">
                 <label>Nome: {{dataConfig.name}}</label>
             </div>
-    
-            <div class="col-4">
+
+            <div class="col-8">
                 <label>Pessoa: {{dataConfig.typePeople ? "Jurídica" : "Física"}}</label>
             </div>
-            
-            <ng-container *ngIf="dataConfig.typePeople; else elseTemplate">
+
+            <ng-container *ngIf="dataConfig.typePeople; else elseTipo">
                 <div class="col-4">
                     <label>CNPJ: {{dataConfig.cnpj | mask: '00.000.000/0000-00'}}</label>
                 </div>
-    
+
                 <div class="col-4">
                     <label>Nome Fantasia: {{dataConfig.nome_fantasia}}</label>
                 </div>
-    
+
                 <div class="col-2">
                     <label>Inscrição Estadual: {{dataConfig.inscricao_estadual}}</label>
                 </div>
-    
+
                 <div class="col-2">
                     <label>Inscrição Municipal: {{dataConfig.inscricao_municipal}}</label>
                 </div>
             </ng-container>
-    
-            <ng-template #elseTemplate>
+
+            <ng-template #elseTipo>
                 <div class="col-4">
                     <label>CPF: {{dataConfig.cpf | mask: '000.000.000-00'}}</label>
                 </div>
-    
+
                 <div class="col-4">
-                    <label>RG: {{dataConfig.rg}}</label>
+                    <label>RG: {{dataConfig.rg | mask : '0.000.000'}}</label>
                 </div>
-    
+
                 <div class="col-4">
                     <label>Estado Civil: {{dataConfig.estado_civil}}</label>
                 </div>
             </ng-template>
-            
+
             <div class="col-4">
                 <label>Telefone: {{dataConfig.telefone | mask: '(00) 0 0000-0000'}}</label>
             </div>
-            
+
             <div class="col-4">
                 <label>Email: {{dataConfig.email}}</label>
             </div>
-    
+
             <div class="col-2">
                 <ng-container *ngIf="dataConfig.status; else elseTemp">
                     <p>Status: <span class="text-success">Ativado</span></p>
@@ -63,50 +63,49 @@
                     <p>Status: <span class="text-danger">Desativado</span></p>
                 </ng-template>
             </div>
-    
+
             <div class="col-2">
-                <label>Data: {{dataConfig.data.toDate().toLocaleDateString('pt-BR')}}</label>
+                <label>Data: {{dataConfig.data.toDate() | date:'dd/MM/yyyy'}}</label>
             </div>
-    
+
         </div>
-    
+
         <h5 class="mt-5">Endereço</h5>
         <hr>
-    
+
         <div class="row g-3">
             <div class="col-4">
                 <label>CEP: {{dataConfig.cep | mask: '00.000-000'}}</label>
             </div>
-    
+
             <div class="col-4">
                 <label>Número: {{dataConfig.numero}}</label>
             </div>
-    
+
             <div class="col-4">
                 <label>Logradouro: {{dataConfig.logradouro}}</label>
             </div>
-    
+
             <div class="col-4">
                 <label>Bairro: {{dataConfig.bairro}}</label>
             </div>
-    
+
             <div class="col-4">
                 <label>UF: {{dataConfig.uf}}</label>
             </div>
-    
+
             <div class="col-4">
                 <label>Cidade: {{dataConfig.cidade}}</label>
             </div>
-    
+
             <div class="col-12">
                 <label>Outros: {{dataConfig.outros}}</label>
             </div>
         </div>
     </mat-dialog-content>
 
-    <mat-dialog-actions align="end">
-        <button mat-raised-button color="primary" [mat-dialog-close]="true"
-        [routerLink]="['./cliente/editar', dataConfig.id]" cdkFocusInitial>Editar</button>
+    <mat-dialog-actions>
+        <button mat-raised-button class="ms-auto" color="primary" [mat-dialog-close]="true"
+            [routerLink]="['./cliente/editar', dataConfig.id]" cdkFocusInitial>Editar</button>
     </mat-dialog-actions>
 </ng-container>
-

@@ -12,6 +12,7 @@ import { CepService } from 'src/app/shared/service/cep.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ClienteService } from './service/cliente.service';
 import { DetalhesComponent } from './detalhes/detalhes.component';
+import { ModalModule } from 'src/app/shared/components/removermodal/modal.module';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { DetalhesComponent } from './detalhes/detalhes.component';
     NgxMaskModule,
     ReactiveFormsModule,
     FormsModule,
+    ModalModule,
     NgxMaskModule,
     HttpClientModule
   ],

@@ -12,7 +12,12 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import * as moment from 'moment';
+import { registerLocaleData } from '@angular/common';
+import ptBr from '@angular/common/locales/pt';
 
+registerLocaleData(ptBr);
+moment.locale('pt-BR');
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 @NgModule({

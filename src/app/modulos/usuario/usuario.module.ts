@@ -12,8 +12,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { NgxMaskModule } from 'ngx-mask';
 import { CityService } from 'src/app/shared/service/city.service';
 import { HttpClientModule } from '@angular/common/http';
-import { ModalComponent } from 'src/app/shared/components/removermodal/modal.component';
 import { CepService } from 'src/app/shared/service/cep.service';
+import { ModalModule } from 'src/app/shared/components/removermodal/modal.module';
 
 
 @NgModule({
@@ -21,7 +21,6 @@ import { CepService } from 'src/app/shared/service/cep.service';
     UsuarioComponent,
     FormComponent,
     DetalhesComponent,
-    ModalComponent
   ],
   imports: [
     CommonModule,
@@ -31,6 +30,7 @@ import { CepService } from 'src/app/shared/service/cep.service';
     AngularFirestoreModule,
     NgxMaskModule,
     FormsModule,
+    ModalModule,
     HttpClientModule
   ],
   providers: [

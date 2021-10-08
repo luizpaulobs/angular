@@ -10,17 +10,14 @@ import { IFisica } from '../interface/fisica.interface';
 
 export class ClienteService {
 
-  readonly banco: string = "clienteDb"
+  readonly banco: string = "clienteDb";
 
   constructor(
     private _firestore: AngularFirestore,
     private _snackBar: MatSnackBar
   ) { }
 
-  fetchData() {
-    return this._firestore.collection<IFisica | IJuridica>(this.banco)
-      .valueChanges({ idField: 'id' })
-  }
+  fetchData = () => this._firestore.collection<IFisica | IJuridica>(this.banco).valueChanges({ idField: 'id' });
 
   fetchById(id: string): Promise<IFisica | IJuridica> {
     return this._firestore.collection<IFisica | IJuridica>(this.banco)
@@ -29,16 +26,16 @@ export class ClienteService {
       .toPromise()
       .then(res => {
         if (res.exists) {
-          return res.data()
+          return res.data();
         }
-        this._snackBar.open("Cliente não encontrado!")
-        return undefined
-      })
+        this._snackBar.open("Cliente não encontrado!");
+        return undefined;
+      });
   }
 
   save(data: IFisica | IJuridica, id: string,) {
     if (id) {
-      data.id = id
+      data.id = id;
       return this._update(data);
     }
     return this._insert(data);
@@ -53,27 +50,27 @@ export class ClienteService {
       })
       .catch((error) => {
         this._snackBar.open(error, "X");
-      })
+      });
   }
 
   private _insert(data: IFisica | IJuridica) {
-    
+
     data.telefone = mapToNumber(data.telefone);
     data.cep = mapToNumber(data.cep);
-    
-    let _data
-    
+
+    let _data;
+
     if (data.typePeople) {
-      _data = data as IJuridica
+      _data = data as IJuridica;
       _data.cnpj = mapToNumber(_data.cnpj);
     } else {
-      _data = data as IFisica
+      _data = data as IFisica;
       _data.cpf = mapToNumber(_data.cpf);
       _data.rg = mapToNumber(_data.rg);
     }
 
     delete data.id;
-    
+
     return this._firestore.collection<IFisica | IJuridica>(this.banco)
       .add(_data)
       .then(() => {
@@ -81,7 +78,7 @@ export class ClienteService {
       })
       .catch((error) => {
         this._snackBar.open(error.menssage, "X");
-      })
+      });
   }
 
   private _update(data: IFisica | IJuridica) {
@@ -92,9 +89,7 @@ export class ClienteService {
         this._snackBar.open("Cliente atualizado com sucesso.", "X");
       })
       .catch((error) => {
-        console.log(error);
-
         this._snackBar.open(error.menssage, "X");
-      })
+      });
   }
 }

@@ -36,7 +36,7 @@ export class DetalhesComponent implements OnInit {
   hide: boolean = true;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: { detalhes: IUsuario },
+    @Inject(MAT_DIALOG_DATA) private data: { detalhes: IUsuario; },
     private _cidade: CityService
 
   ) { }
@@ -44,9 +44,9 @@ export class DetalhesComponent implements OnInit {
   ngOnInit(): void {
     this._cidade.fetchCidade(this.data.detalhes.localidade)
       .then(res => {
-        this.dataConfig = this.data.detalhes
-        this.dataConfig.cidade = res.nome
-      })
+        this.dataConfig = this.data.detalhes;
+        this.dataConfig.cidade = res.nome;
+      });
 
   }
 

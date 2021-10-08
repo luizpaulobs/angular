@@ -1,5 +1,5 @@
 <mat-card class="exemplo-card">
-    <mat-card-title>{{id ? "Editar Cliente" : "Cadastrar Novo Cliente"}}</mat-card-title>
+    <mat-card-title>{{id ? "Editar Cliente" : "Novo Cliente"}}</mat-card-title>
     <mat-card-subtitle>Os campos com (*) são obrigatórios</mat-card-subtitle>
 
     <mat-card-content>
@@ -8,7 +8,8 @@
                 <mat-tab label="Geral">
                     <div class="row mx-0 g-3">
                         <section class="example-section">
-                            <mat-checkbox #typePeople formControlName="typePeople" class="example-margin">Jurídica
+                            <mat-checkbox #typePeople formControlName="typePeople" class="example-margin">
+                                Jurídica
                             </mat-checkbox>
                         </section>
 

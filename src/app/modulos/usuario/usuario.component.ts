@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { IUsuario } from './interface/usuario.interface';
 import { UserService } from './service/user.service';
-import { debounceTime, takeUntil } from 'rxjs/operators'
+import { debounceTime, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { SEXO } from './constantes/sexo.constantes';
 import { SEXOENUM } from './enum/sexo.enum';
@@ -22,11 +22,11 @@ export class UsuarioComponent implements OnInit, AfterViewInit, OnDestroy {
 
   displayedColumns: string[] = ['name', 'email', 'telefone', 'cpf', 'sexo', 'status', 'actions'];
   dataSource: MatTableDataSource<IUsuario> = new MatTableDataSource(undefined);
-  sexoList = SEXO
-  sexoEnum = SEXOENUM
-  search = new FormControl(undefined)
+  sexoList = SEXO;
+  sexoEnum = SEXOENUM;
+  search = new FormControl(undefined);
 
-  private _onDestroy = new Subject<void>()
+  private _onDestroy = new Subject<void>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -37,26 +37,11 @@ export class UsuarioComponent implements OnInit, AfterViewInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this._service.fetchData().pipe(takeUntil(this._onDestroy)).subscribe((res) => {
-      res.forEach(i => {
-        switch (i.sexo) {
-          case this.sexoEnum.MASCULINO:
-            i.sexo = 'Masculino'
-            break;
-          case this.sexoEnum.FEMININO:
-            i.sexo = 'Feminino'
-            break;
-          case this.sexoEnum.NAO_OPINAR:
-            i.sexo = 'Não Opinar'
-            break;
-        }
-      })
+    this._getData();
 
-      this.dataSource.data = res
-    })
     this.search.valueChanges
       .pipe(takeUntil(this._onDestroy), debounceTime(500))
-      .subscribe((res) => this.dataSource.filter = res.trim().toLowerCase())
+      .subscribe((res) => this.dataSource.filter = res.trim().toLowerCase());
   }
 
   ngAfterViewInit() {
@@ -77,14 +62,32 @@ export class UsuarioComponent implements OnInit, AfterViewInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this._service.remove(row.id)
+        this._service.remove(row.id);
       }
     });
   }
-  
-  info(row: IUsuario) {
-    this.dialog.open(DetalhesComponent, {
-      data: { detalhes: row }
-    })
+
+  info = (row: IUsuario) => this.dialog.open(DetalhesComponent, { data: { detalhes: row } });
+
+  private _getData() {
+    this._service.fetchData()
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe((res) => {
+        res.forEach(i => {
+          switch (i.sexo) {
+            case this.sexoEnum.MASCULINO:
+              i.sexo = 'Masculino';
+              break;
+            case this.sexoEnum.FEMININO:
+              i.sexo = 'Feminino';
+              break;
+            case this.sexoEnum.NAO_OPINAR:
+              i.sexo = 'Não Opinar';
+              break;
+          }
+        });
+
+        this.dataSource.data = res;
+      });
   }
 }

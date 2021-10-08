@@ -13,11 +13,10 @@ import { IJuridica } from '../interface/juridica.interface';
 export class DetalhesComponent implements OnInit {
 
   dataConfig: any;
-  hide = true;
-  cidade;
+  hide: boolean = true;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: { detalhes: IFisica | IJuridica },
+    @Inject(MAT_DIALOG_DATA) private data: { detalhes: IFisica | IJuridica; },
     private _cidade: CityService
   ) { }
 
@@ -25,11 +24,8 @@ export class DetalhesComponent implements OnInit {
 
     this._cidade.fetchCidade(this.data.detalhes.localidade)
       .then(res => {
-        this.dataConfig = this.data.detalhes
-        this.dataConfig.cidade = res.nome
-      })
+        this.dataConfig = this.data.detalhes;
+        this.dataConfig.cidade = res.nome;
+      });
   }
-
-
-
 }

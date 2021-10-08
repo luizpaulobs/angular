@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -115,7 +115,8 @@ const materialComponents = [
             useValue: { appearance: 'standard' },
         },
         { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } },
-        { provide: MAT_DATE_LOCALE, useValue: 'pt-br' },
+        { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+        { provide: LOCALE_ID, useValue: "pt-BR" },
         { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
         {
             provide: MAT_DATE_FORMATS,
