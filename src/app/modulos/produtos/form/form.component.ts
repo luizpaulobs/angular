@@ -41,7 +41,15 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.form.get('data_cadastro').setValue(new Date);
+    
+    if (this.id) {
+      this._service.fetchById(this.id)
+      .then((res) => {
+        this.form.patchValue({ ...res, validade: res.validade.toDate() });
+      });
+    } else {
+      this.form.get('data_cadastro').setValue(new Date);
+    }
   }
 
   ngOnDestroy(): void {
@@ -69,8 +77,6 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
   salvar() {
     if (this.form.valid) {
       this.loading = true;
-      console.log(this.form.value);
-
 
       this._service.save(this.form.value, this.id)
         .then(() => {

@@ -13,7 +13,6 @@ import { IJuridica } from '../interface/juridica.interface';
 export class DetalhesComponent implements OnInit {
 
   dataConfig: any;
-  hide: boolean = true;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: { detalhes: IFisica | IJuridica; },

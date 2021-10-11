@@ -11,12 +11,14 @@ import { ModalModule } from 'src/app/shared/components/removermodal/modal.module
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from 'src/app/material.module';
 import { ProductService } from './service/product.service';
+import { DetalhesComponent } from './detalhes/detalhes.component';
 
 
 @NgModule({
   declarations: [
     ProdutosComponent,
-    FormComponent
+    FormComponent,
+    DetalhesComponent
   ],
   imports: [
     CommonModule,

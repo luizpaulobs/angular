@@ -1,0 +1,56 @@
+<div class="d-flex">
+    <h2 class="me-auto" mat-dialog-title>Detalhes do Produto</h2>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<ng-container *ngIf="dataConfig">
+    <mat-dialog-content>
+        <div class="row g-3">
+            <div class="col-4">
+                <small class="text-gray d-block">Nome</small>
+                <label>{{dataConfig.nome}}</label>
+            </div>
+
+            <div class="col-8">
+                <small class="text-gray d-block">Marca</small>
+                <label>{{dataConfig.marca}}</label>
+            </div>
+
+            <div class="col-4">
+                <small class="text-gray d-block">Código</small>
+                <label>{{dataConfig.cod}}</label>
+            </div>
+
+            <div class="col-4">
+                <small class="text-gray d-block">Validade</small>
+                <label>{{dataConfig.validade.toDate() | date: 'dd/MM/yy'}}</label>
+            </div>
+
+            <div class="col-4">
+                <small class="text-gray d-block">Data do Cadastro</small>
+                <label>{{dataConfig.data_cadastro.toDate() | date: 'dd/MM/yy'}}</label>
+            </div>
+
+            <div class="col-4">
+                <small class="text-gray d-block">Qtd. Entrada</small>
+                <label>{{dataConfig.qtd_entrada}}</label>
+            </div>
+
+            <div class="col-4">
+                <small class="text-gray d-block">Qtd. Saída</small>
+                <label>{{dataConfig.qtd_saida}}</label>
+            </div>
+
+            <div class="col-4">
+                <small class="text-gray d-block">Valor</small>
+                <label>R$ {{dataConfig.valor}}</label>
+            </div>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button mat-raised-button class="ms-auto" color="primary" [mat-dialog-close]="true"
+            [routerLink]="['./produtos/editar', dataConfig.id]" cdkFocusInitial>Editar</button>
+    </mat-dialog-actions>
+</ng-container>

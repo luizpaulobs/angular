@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { ModalComponent } from 'src/app/shared/components/removermodal/modal.component';
+import { DetalhesComponent } from './detalhes/detalhes.component';
 import { IProdutos } from './interface/produtos.interface';
 import { ProductService } from './service/product.service';
 
@@ -36,8 +37,6 @@ export class ProdutosComponent implements OnInit, AfterViewInit {
       .pipe(takeUntil(this._onDestroy))
       .subscribe((res) => this.dataSource.data = res);
 
-    console.log(this.dataSource);
-    
     this.search.valueChanges
       .pipe(takeUntil(this._onDestroy), debounceTime(500))
       .subscribe((res) => this.dataSource.filter = res.trim().toLowerCase());
@@ -62,7 +61,9 @@ export class ProdutosComponent implements OnInit, AfterViewInit {
   }
 
   info(row: IProdutos) {
-
+    this.dialog.open(DetalhesComponent, {
+      data: { detalhes: row }
+    });
   }
 
 }
