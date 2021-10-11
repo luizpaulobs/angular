@@ -12,7 +12,7 @@
                 <label>{{dataConfig.nome}}</label>
             </div>
 
-            <div class="col-8">
+            <div class="col-4">
                 <small class="text-gray d-block">Marca</small>
                 <label>{{dataConfig.marca}}</label>
             </div>
@@ -33,18 +33,25 @@
             </div>
 
             <div class="col-4">
+                <small class="text-gray d-block">Valor</small>
+                <label>{{dataConfig.valor | currency: 'BRL'}}</label>
+            </div>
+
+            <div class="col-4">
                 <small class="text-gray d-block">Qtd. Entrada</small>
                 <label>{{dataConfig.qtd_entrada}}</label>
+                <mat-icon class="green-icon">arrow_upward</mat-icon>
             </div>
 
             <div class="col-4">
                 <small class="text-gray d-block">Qtd. Saída</small>
                 <label>{{dataConfig.qtd_saida}}</label>
+                <mat-icon class="red-icon">arrow_downward</mat-icon>
             </div>
 
             <div class="col-4">
-                <small class="text-gray d-block">Valor</small>
-                <label>R$ {{dataConfig.valor}}</label>
+                <small class="text-gray d-block">Saldo</small>
+                <label>{{dataConfig.qtd_entrada - dataConfig.qtd_saida}}</label>
             </div>
         </div>
     </mat-dialog-content>

@@ -1,0 +1,28 @@
+<div class="row g-3">
+    <div class="col-12 col-md-4">
+        <app-totalcard [total]="usuario" texto="Total de Usuários" icone="person" cor="primary"></app-totalcard>
+    </div>
+
+    <div class="col-12 col-md-4">
+        <app-totalcard [total]="cliente" texto="Total de Clientes" icone="group" cor="warn"></app-totalcard>
+    </div>
+
+    <div class="col-12 col-md-4">
+        <app-totalcard [total]="produto" texto="Total de Produtos" icone="store" cor="accent"></app-totalcard>
+    </div>
+
+    <div class="col-12 col-md-6">
+        <mat-card>
+            <mat-list>
+                <div mat-subheader>Total de Entrada do dia</div>
+                <mat-list-item *ngFor="let item of totalProdutos">
+                    <div mat-line>{{item.nome}}</div>
+                    <div mat-line>Qtd. Entrada: {{item.qtd_entrada}} </div>
+                    <mat-icon mat-list-icon class="green-icon">arrow_upward</mat-icon>
+                </mat-list-item>
+            </mat-list>
+        </mat-card>
+    </div>
+
+
+</div>
