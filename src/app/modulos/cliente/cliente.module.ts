@@ -11,12 +11,15 @@ import { CityService } from 'src/app/shared/service/city.service';
 import { CepService } from 'src/app/shared/service/cep.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ClienteService } from './service/cliente.service';
+import { DetalhesComponent } from './detalhes/detalhes.component';
+import { ModalModule } from 'src/app/shared/components/removermodal/modal.module';
 
 
 @NgModule({
   declarations: [
     ClienteComponent,
-    FormComponent
+    FormComponent,
+    DetalhesComponent
   ],
   imports: [
     CommonModule,
@@ -25,6 +28,7 @@ import { ClienteService } from './service/cliente.service';
     NgxMaskModule,
     ReactiveFormsModule,
     FormsModule,
+    ModalModule,
     NgxMaskModule,
     HttpClientModule
   ],

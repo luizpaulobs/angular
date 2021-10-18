@@ -8,36 +8,43 @@
 <mat-dialog-content>
     <div class="row g-3">
         <div class="col-12">
-            <label>Nome: {{dataConfig.name}}</label>
+            <small class="text-gray d-block">Nome</small>
+            <label>{{dataConfig.name}}</label>
         </div>
 
         <div class="col-4">
-            <label>CPF: {{dataConfig.cpf | mask: '000.000.000-00'}}</label>
+            <small class="text-gray d-block">CPF</small>
+            <label>{{dataConfig.cpf | mask: '000.000.000-00'}}</label>
         </div>
 
         <div class="col-4">
-            <label>Sexo: {{dataConfig.sexo}}</label>
+            <small class="text-gray d-block">Sexo</small>
+            <label>{{dataConfig.sexo}}</label>
         </div>
 
         <div class="col-4">
+            <small class="text-gray d-block">Status</small>
             <ng-container *ngIf="dataConfig.status; else elseTemplate">
-                <p>Status: <span class="text-success">Ativado</span></p>
+                <span class="text-success">Ativado</span>
             </ng-container>
             <ng-template #elseTemplate>
-                <p>Status: <span class="text-danger">Desativado</span></p>
+                <span class="text-danger">Desativado</span>
             </ng-template>
         </div>
 
         <div class="col-4">
-            <label>Telefone: {{dataConfig.telefone | mask: '(00) 0 0000-0000'}}</label>
+            <small class="text-gray d-block">Telefone</small>
+            <label>{{dataConfig.telefone | mask: '(00) 0 0000-0000'}}</label>
         </div>
 
         <div class="col-4">
-            <label>Email: {{dataConfig.email}}</label>
+            <small class="text-gray d-block">Email</small>
+            <label>{{dataConfig.email}}</label>
         </div>
 
         <div class="col-4">
-            <label>Senha: {{hide ? '******': dataConfig.senha}}</label>
+            <small class="text-gray d-block">Senha</small>
+            <label>{{hide ? '******': dataConfig.senha}}</label>
             <button mat-icon-button matSuffix type="button" (click)="hide = !hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
@@ -49,31 +56,38 @@
 
     <div class="row g-3">
         <div class="col-4">
-            <label>CEP: {{dataConfig.cep | mask: '00.000-000'}}</label>
+            <small class="text-gray d-block">CEP</small>
+            <label>{{dataConfig.cep | mask: '00.000-000'}}</label>
         </div>
 
         <div class="col-4">
-            <label>Número: {{dataConfig.numero}}</label>
+            <small class="text-gray d-block">Número</small>
+            <label>{{dataConfig.numero}}</label>
         </div>
 
         <div class="col-4">
-            <label>Logradouro: {{dataConfig.logradouro}}</label>
+            <small class="text-gray d-block">Logradouro</small>
+            <label>{{dataConfig.logradouro}}</label>
         </div>
 
         <div class="col-4">
-            <label>Bairro: {{dataConfig.bairro}}</label>
+            <small class="text-gray d-block">Bairro</small>
+            <label>{{dataConfig.bairro}}</label>
         </div>
 
         <div class="col-4">
-            <label>UF: {{dataConfig.uf}}</label>
+            <small class="text-gray d-block">UF</small>
+            <label>{{dataConfig.uf}}</label>
         </div>
 
         <div class="col-4">
-            <label>Cidade: {{dataConfig.cidade}}</label>
+            <small class="text-gray d-block">Cidade</small>
+            <label>{{dataConfig.cidade}}</label>
         </div>
 
         <div class="col-12">
-            <label>Outros: {{dataConfig.outros}}</label>
+            <small class="text-gray d-block">Outros</small>
+            <label>{{dataConfig.outros}}</label>
         </div>
     </div>
 </mat-dialog-content>

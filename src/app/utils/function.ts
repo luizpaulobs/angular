@@ -1,6 +1,6 @@
 export const mapToNumber = (value) => Number(value)
 
-export const STATES: Array<{id: string, name: string}> = [
+export const STATES: Array<{ id: string, name: string }> = [
     { id: 'AC', name: 'ACRE' },
     { id: 'AL', name: 'ALAGOAS' },
     { id: 'AP', name: 'AMAPÁ' },
@@ -28,12 +28,12 @@ export const STATES: Array<{id: string, name: string}> = [
     { id: 'SE', name: 'SERGIPE' },
     { id: 'SP', name: 'SÃO PAULO' },
     { id: 'TO', name: 'TOCANTINS' },
-    ];
+];
 
-    export const CIVIL: Array<{id: string}> = [
-        {id: 'Solteiro(a)'},
-        {id: 'Casado(a)'},
-        {id: 'Separado(a)'},
-        {id: 'Divorciado(a)'},
-        {id: 'Viúvo(a)'}
-    ]
+export const CIVIL: string[] = [
+    'Solteiro(a)',
+    'Casado(a)',
+    'Separado(a)',
+    'Divorciado(a)',
+    'Viúvo(a)'
+]

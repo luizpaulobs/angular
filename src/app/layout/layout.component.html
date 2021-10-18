@@ -1,18 +1,25 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button class="example-icon" (click)="sidenav.toggle()">
+    <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
     </button>
     <span>Angular</span>
-    <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon favorite-icon">
-        <mat-icon>favorite</mat-icon>
-    </button>
-    <button mat-icon-button class="example-icon">
-        <mat-icon>share</mat-icon>
-    </button>
+
+    <button mat-button class="ms-auto" [matMenuTriggerFor]="menu">{{nome}}</button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+            <mat-icon>lock</mat-icon>
+            <span>Trocar Senha</span>
+        </button>
+        <button mat-menu-item class="red-color">
+            <mat-icon class="red-color">logout</mat-icon>
+            <span>Sair</span>
+        </button>
+    </mat-menu>
+
+    
 </mat-toolbar>
 
-<mat-sidenav-container class="example-container">
+<mat-sidenav-container class="menu-container">
     <mat-sidenav #sidenav [mode]="mobileQuery.matches ? 'side' : 'over'" [opened]="mobileQuery.matches">
         <app-sidenav></app-sidenav>
     </mat-sidenav>

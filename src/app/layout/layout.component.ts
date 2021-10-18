@@ -9,8 +9,10 @@ import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, O
 })
 export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
+    nome: string;
     mobileQuery: MediaQueryList;
     private _mobileQueryListener: () => void;
+    
     constructor(
         public media: MediaMatcher,
         private _cdr: ChangeDetectorRef
@@ -20,10 +22,12 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
         this.mobileQuery.addListener(this._mobileQueryListener);
     }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+        this.nome = 'Luiz Paulo Bellumat';
+     }
     
     ngAfterViewInit(): void {
-        //this._cdr.detectChanges()    
+        this._cdr.detectChanges()    
     }
 
     ngOnDestroy(): void {

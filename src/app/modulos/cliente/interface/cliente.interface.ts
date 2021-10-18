@@ -9,5 +9,5 @@ export interface ICliente extends IEndereco {
     email: string,
     data: Moment,
     status: boolean,
-    typePeole: Boolean
+    typePeople: Boolean
 }
